@@ -1,0 +1,398 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PROJEKT1_WinForms
+{
+    public partial class EditRowBox : Form
+    {
+        static EditRowBox EditBox;
+        static List<TextBox> listOfBtn = new List<TextBox>();
+        static List<TextBox> listOfTxt = new List<TextBox>();
+        public EditRowBox()
+        {
+            InitializeComponent();
+        }
+        public static void ShowCreate(DataGridView dataGridViewTable)
+        {
+            listOfBtn.Clear();
+            listOfTxt.Clear();
+            EditBox = new EditRowBox();
+            DataTable schema = null;
+            string connectionStr = ConfigurationManager.ConnectionStrings["NorthwindEntitiesFixed"].ToString();
+            using (var conn = new SqlConnection(connectionStr))
+            {
+                conn.Open();
+                using (var schemaCommand = new SqlCommand(
+                    string.Format("SELECT * FROM {0}", GObjType.objType), conn))
+                {
+                    using (var reader = schemaCommand.ExecuteReader(CommandBehavior.SchemaOnly))
+                    {
+                        schema = reader.GetSchemaTable();
+                    }
+                }
+
+                MaxSigner maxSignsAmount = new MaxSigner();
+                maxSignsAmount.MaxSignsSet();
+
+
+                int i = 30;
+                int repeat = 0;
+                foreach (DataRow col in schema.Rows)
+                {
+
+                    TextBox btn = new TextBox
+                    {
+                        Width = 100,
+                        Height = 15,
+                        Text = col.Field<String>("ColumnName"),
+                        Location = new Point(50, i),
+                        Enabled = false,
+                    };
+                    TextBox txt = new TextBox
+                    {
+                        Width = 150,
+                        Height = 15,
+                        Text = "",
+                        Location = new Point(150, i),
+                        MaxLength = maxSignsAmount.maxSigns[repeat]
+                    };
+                    repeat++;
+                    listOfBtn.Add(btn);
+                    listOfTxt.Add(txt);
+                    EditBox.Controls.Add(btn);
+                    EditBox.Controls.Add(txt);
+                    i += 25;
+                }
+                EditBox.ShowDialog();
+
+                conn.Close();
+            }
+        }
+
+        private void buttonCreateRow_Click(object sender, EventArgs e)
+        {
+            NorthwindContext db = new NorthwindContext();
+            int foreignKeys = 0;
+            if(GObjType.objType == "Categories")
+            {
+                if (listOfTxt[1].Text == "")
+                    return;
+                Categories cat = new Categories();
+                int x;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.CategoryID = x;
+                cat.CategoryName = listOfTxt[1].Text;
+                cat.Description = listOfTxt[2].Text;
+                //cat.Picture = listOfTxt[3].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "CustomerDemographics")
+            {
+                CustomerDemographics cat = new CustomerDemographics();
+                cat.CustomerTypeID = listOfTxt[0].Text;
+                cat.CustomerDesc = listOfTxt[1].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Customers")
+            {
+                if (listOfTxt[1].Text == "")
+                    return;
+                Customers cat = new Customers();
+                cat.CustomerID = listOfTxt[0].Text;
+                cat.CompanyName = listOfTxt[1].Text;
+                cat.ContactName = listOfTxt[2].Text;
+                cat.ContactTitle = listOfTxt[3].Text;
+                cat.Address = listOfTxt[4].Text;
+                cat.City = listOfTxt[5].Text;
+                cat.Region = listOfTxt[6].Text;
+                cat.PostalCode = listOfTxt[7].Text;
+                cat.Country = listOfTxt[8].Text;
+                cat.Phone = listOfTxt[9].Text;
+                cat.Fax = listOfTxt[10].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Employees")
+            {
+                if (listOfTxt[1].Text == "" || listOfTxt[2].Text == "")
+                    return;
+                Employees cat = new Employees();
+                int x;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if(success)
+                    cat.EmployeeID = x;
+                cat.LastName = listOfTxt[1].Text;
+                cat.FirstName = listOfTxt[2].Text;
+                cat.Title = listOfTxt[3].Text;
+                cat.TitleOfCourtesy = listOfTxt[4].Text;
+                DateTime y;
+                success = DateTime.TryParse(listOfTxt[5].Text, out y);
+                if(success)
+                    cat.BirthDate = y;
+                success = DateTime.TryParse(listOfTxt[6].Text, out y);
+                if (success)
+                    cat.HireDate = y;
+                cat.Address = listOfTxt[7].Text;
+                cat.City = listOfTxt[8].Text;
+                cat.Region = listOfTxt[9].Text;
+                cat.PostalCode = listOfTxt[10].Text;
+                cat.Country = listOfTxt[11].Text;
+                cat.HomePhone = listOfTxt[12].Text;
+                cat.Extension = listOfTxt[13].Text;
+                //cat.Photo = listOfTxt[14].Text;
+                cat.Notes = listOfTxt[15].Text;
+                success = Int32.TryParse(listOfTxt[16].Text, out x);
+                if(success)
+                    cat.ReportsTo = x;
+                cat.PhotoPath = listOfTxt[17].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Order Details")
+            {
+                if (listOfTxt[0].Text == "" || listOfTxt[1].Text == "" || listOfTxt[2].Text == ""
+                    || listOfTxt[3].Text == "" || listOfTxt[4].Text == "")
+                    return;
+                Order_Details cat = new Order_Details();
+                
+                int x;
+                float y;
+                decimal z;
+                Int16 r;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.OrderID = x;
+                else
+                {
+
+                }
+                success = Int32.TryParse(listOfTxt[1].Text, out x);
+                foreach (var item in db.Products)
+                {
+                    if (item.ProductID == x)
+                        foreignKeys++;
+                }
+                if (success)
+                    cat.ProductID = x;
+                else
+                {
+
+                }
+                success = Decimal.TryParse(listOfTxt[2].Text, out z);
+                if (success)
+                    cat.UnitPrice = z;
+                else
+                {
+
+                }
+                success = Int16.TryParse(listOfTxt[3].Text, out r);
+                if (success)
+                    cat.Quantity = r;
+                else
+                    return;
+                success = float.TryParse(listOfTxt[4].Text, out y);
+                if (success)
+                    cat.Discount = y;
+                else
+                    return;
+                if (foreignKeys < 1)
+                    return;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Orders")
+            {
+                int x;
+                decimal y;
+                DateTime z;
+                Orders cat = new Orders();
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.OrderID = x;
+                foreach (var item in db.Customers)
+                {
+                    if (item.CustomerID == listOfTxt[1].Text)
+                        foreignKeys = 1;
+                }
+                if (foreignKeys < 1)
+                    return;
+                cat.CustomerID = listOfTxt[1].Text;
+                success = Int32.TryParse(listOfTxt[2].Text, out x);
+                foreach (var item in db.Employees)
+                {
+                    if (item.EmployeeID == x)
+                        foreignKeys = 2;
+                }
+                if (foreignKeys < 2)
+                    return;
+                if (success)
+                    cat.EmployeeID = x;
+                success = DateTime.TryParse(listOfTxt[3].Text, out z);
+                if (success)
+                    cat.OrderDate = z;
+                success = DateTime.TryParse(listOfTxt[4].Text, out z);
+                if (success)
+                    cat.RequiredDate = z;
+                success = DateTime.TryParse(listOfTxt[5].Text, out z);
+                if (success)
+                    cat.ShippedDate = z;
+                success = Int32.TryParse(listOfTxt[6].Text, out x);
+                foreach (var item in db.Shippers)
+                {
+                    if (item.ShipperID == x)
+                        foreignKeys = 3;
+                }
+                if (foreignKeys < 3)
+                    return;
+                if (success)
+                    cat.ShipVia = x;
+                success = decimal.TryParse(listOfTxt[7].Text, out y);
+                if (success)
+                    cat.Freight = y;
+                cat.ShipName = listOfTxt[8].Text;
+                cat.ShipAddress = listOfTxt[9].Text;
+                cat.ShipCity = listOfTxt[10].Text;
+                cat.ShipRegion = listOfTxt[11].Text;
+                cat.ShipPostalCode = listOfTxt[12].Text;
+                cat.ShipCountry = listOfTxt[13].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Products")
+            {
+                if (listOfTxt[1].Text == "" || listOfTxt[9].Text == "")
+                    return;
+                Products cat = new Products();
+                int x;
+                Int16 y;
+                decimal z;
+                bool r;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.ProductID = x;
+                cat.ProductName = listOfTxt[1].Text;
+                success = Int32.TryParse(listOfTxt[2].Text, out x);
+                foreach (var item in db.Suppliers)
+                {
+                    if (item.SupplierID == x)
+                        foreignKeys = 1;
+                }
+                if (foreignKeys < 1)
+                    return;
+                if (success)
+                    cat.SupplierID = x;
+                success = Int32.TryParse(listOfTxt[3].Text, out x);
+                foreach (var item in db.Categories)
+                {
+                    if (item.CategoryID == x)
+                        foreignKeys = 2;
+                }
+                if (foreignKeys < 2)
+                    return;
+                if (success)
+                    cat.CategoryID = x;
+                cat.QuantityPerUnit = listOfTxt[4].Text;
+                success = decimal.TryParse(listOfTxt[5].Text, out z);
+                if (success)
+                    cat.UnitPrice = z;
+                success = Int16.TryParse(listOfTxt[6].Text, out y);
+                if (success)
+                    cat.UnitsInStock = y;
+                success = Int16.TryParse(listOfTxt[7].Text, out y);
+                if (success)
+                    cat.UnitsOnOrder = y;
+                success = Int16.TryParse(listOfTxt[8].Text, out y);
+                if (success)
+                    cat.ReorderLevel = y;
+                success = bool.TryParse(listOfTxt[9].Text, out r);
+                if (success)
+                    cat.Discontinued = r;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Region")
+            {
+                if (listOfTxt[1].Text == "")
+                    return;
+                Region cat = new Region();
+                int x;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.RegionID = x;
+                cat.RegionDescription = listOfTxt[1].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Shippers")
+            {
+                if (listOfTxt[1].Text == "")
+                    return;
+                Shippers cat = new Shippers();
+                int x;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.ShipperID = x;
+                cat.CompanyName = listOfTxt[1].Text;
+                cat.Phone = listOfTxt[2].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Suppliers")
+            {
+                if (listOfTxt[1].Text == "")
+                    return;
+                Suppliers cat = new Suppliers();
+                int x;
+                bool success = Int32.TryParse(listOfTxt[0].Text, out x);
+                if (success)
+                    cat.SupplierID = x;
+                cat.CompanyName = listOfTxt[1].Text;
+                cat.ContactName = listOfTxt[2].Text;
+                cat.ContactTitle = listOfTxt[3].Text;
+                cat.Address = listOfTxt[4].Text;
+                cat.City = listOfTxt[5].Text;
+                cat.Region = listOfTxt[6].Text;
+                cat.PostalCode = listOfTxt[7].Text;
+                cat.Country = listOfTxt[8].Text;
+                cat.Phone = listOfTxt[9].Text;
+                cat.Fax = listOfTxt[10].Text;
+                cat.HomePage = listOfTxt[11].Text;
+                cat.Create();
+            }
+
+            if (GObjType.objType == "Territories")
+            {
+                Territories cat = new Territories();
+                int x;
+                if (listOfTxt[0].Text == "" || listOfTxt[1].Text == "" || listOfTxt[2].Text == "")
+                    return;
+                cat.TerritoryID = listOfTxt[0].Text;
+                cat.TerritoryDescription = listOfTxt[1].Text;
+                bool success = Int32.TryParse(listOfTxt[2].Text, out x);
+                foreach (var item in db.Region)
+                {
+                    if (item.RegionID == x)
+                        foreignKeys = 1;
+                }
+                if (foreignKeys < 1)
+                    return;
+                if (success)
+                    cat.RegionID = x;
+                cat.Create();
+            }
+            EditBox.Close();
+        }
+    }
+}

@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{483660AE-7C04-446A-96E0-02815247C4FB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PROJEKT1_WinForms</RootNamespace>
+    <AssemblyName>PROJEKT1_WinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.1\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormsFixed\AddCategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddCategoriesForm.Designer.cs">
+      <DependentUpon>AddCategoriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddCustDemoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddCustDemoForm.Designer.cs">
+      <DependentUpon>AddCustDemoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddEmployeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddEmployeesForm.Designer.cs">
+      <DependentUpon>AddEmployeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddOrderDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddOrderDetailsForm.Designer.cs">
+      <DependentUpon>AddOrderDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddOrdersForm.Designer.cs">
+      <DependentUpon>AddOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddProductsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddProductsForm.Designer.cs">
+      <DependentUpon>AddProductsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddRegionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddRegionForm.Designer.cs">
+      <DependentUpon>AddRegionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddShippersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddShippersForm.Designer.cs">
+      <DependentUpon>AddShippersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddSuppliersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddSuppliersForm.Designer.cs">
+      <DependentUpon>AddSuppliersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddTerritoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddTerritoriesForm.Designer.cs">
+      <DependentUpon>AddTerritoriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\DeleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\DeleteForm.Designer.cs">
+      <DependentUpon>DeleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFixed\AddCustomersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsFixed\AddCustomersForm.Designer.cs">
+      <DependentUpon>AddCustomersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelsFixed\Categories.cs" />
+    <Compile Include="ModelsFixed\CustomerDemographics.cs" />
+    <Compile Include="ModelsFixed\Customers.cs" />
+    <Compile Include="ModelsFixed\Employees.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelsFixed\IAddingForm.cs" />
+    <Compile Include="ModelsFixed\NorthwindContext.cs" />
+    <Compile Include="ModelsFixed\Orders.cs" />
+    <Compile Include="ModelsFixed\Order_Details.cs" />
+    <Compile Include="ModelsFixed\Products.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModelsFixed\Region.cs" />
+    <Compile Include="ModelsFixed\Shippers.cs" />
+    <Compile Include="ModelsFixed\Suppliers.cs" />
+    <Compile Include="ModelsFixed\Territories.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddCategoriesForm.resx">
+      <DependentUpon>AddCategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddCustDemoForm.resx">
+      <DependentUpon>AddCustDemoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddCustomersForm.resx">
+      <DependentUpon>AddCustomersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddEmployeesForm.resx">
+      <DependentUpon>AddEmployeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddOrderDetailsForm.resx">
+      <DependentUpon>AddOrderDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddOrdersForm.resx">
+      <DependentUpon>AddOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddProductsForm.resx">
+      <DependentUpon>AddProductsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddRegionForm.resx">
+      <DependentUpon>AddRegionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddShippersForm.resx">
+      <DependentUpon>AddShippersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddSuppliersForm.resx">
+      <DependentUpon>AddSuppliersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\AddTerritoriesForm.resx">
+      <DependentUpon>AddTerritoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormsFixed\DeleteForm.resx">
+      <DependentUpon>DeleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+</Project>
